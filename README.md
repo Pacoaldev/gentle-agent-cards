@@ -53,6 +53,12 @@ The head "Agents" with "N active · M" and the bell button on the right, then on
 - `mods/gentle-agent-cards/needs-you.svg` is the bell-ring icon of [Lucide](https://lucide.dev) (ISC license).
 - In the spirit of [Agent Cards](https://github.com/dougcunha/herdr-mods/tree/main/agent-cards-app) by Douglas Cunha.
 
+<p align="center">
+  <a href="https://github.com/Gentleman-Programming/gentle-ai">
+    <img width="220" src="https://raw.githubusercontent.com/Gentleman-Programming/gentle-ai/main/docs/assets/brand/built-with-gentle-ai.png" alt="Built with Gentle-AI" />
+  </a>
+</p>
+
 ## License
 
 MIT. See [LICENSE](LICENSE).
