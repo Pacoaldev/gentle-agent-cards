@@ -9,36 +9,46 @@ export const STAGE = 64;
 // The rose's own hue when the theme has no color for a status.
 const ROSE = "#f0447a";
 
-// The rose on the stage: 200x261 source. Halo anchor = alpha centroid of the bloom
-// head in rose.png mapped into the drawn box (not the 64px square center).
+// The rose on the stage: 200x261 source. Halo anchor = the center of the bloom
+// head mapped into the drawn box (not the 64px square center, not the alpha
+// centroid: that sits on the stem and pinned the disc half above the stage).
 const ROSE_SRC_W = 200, ROSE_SRC_H = 261;
-const ROSE_W = 46, ROSE_H = 60;
-const roseLeft = (STAGE - ROSE_W) / 2, roseTop = 2;
+const ROSE_W = 40, ROSE_H = 52;
+const roseLeft = (STAGE - ROSE_W) / 2, roseTop = 6;
 const HALO_CX = roseLeft + (99.5 / ROSE_SRC_W) * ROSE_W;
-const HALO_CY = (41.2 / ROSE_SRC_H) * ROSE_H;
-// Keep diameters modest so top = HALO_CY - d/2 stays inside overflow_hidden.
+const HALO_CY = roseTop + (68 / ROSE_SRC_H) * ROSE_H + 3; // +3: the mist reads best just under the bloom
+// The halo needs air: a 64px stage with a full-bleed rose shows no rim, so the
+// rose is drawn at 40x52 and the halo may reach d=50 around the bloom head.
 
 // An element at a fixed spot in the stage.
 const at = (el, x, y) => el.absolute().left(x).top(y);
 
 // Soft halo on the bloom: pinned with `left`/`top` (loops on position stay at 0,0
 // until the first tick — reads as a disc growing from the corner). Size + opacity
-// loop only; ~2px center drift at d1→d2 is negligible on a 64px stage.
-function halo(tint, d1, d2, period, opacity = 0.16) {
-  const disc = div()
-    .w(d1)
-    .h(d1)
-    .rounded(d2 / 2)
+// loop only. Two discs: a small bright core and a wide dim one, like `pet.js`.
+function halo(tint, d1, d2, period, opacity = 0.14) {
+  const disc = (a, b, op) => div()
+    .w(a)
+    .h(a)
+    .rounded(b / 2)
     .bg(tint)
-    .loop("width", { from: d1, to: d2, period })
-    .loop("height", { from: d1, to: d2, period })
-    .loop("opacity", { from: opacity * 0.6, to: opacity, period });
-  return at(disc, HALO_CX - d1 / 2, HALO_CY - d1 / 2);
+    .loop("width", { from: a, to: b, period })
+    .loop("height", { from: a, to: b, period })
+    .loop("opacity", { from: op * 0.5, to: op, period });
+  // A mist, not a stain: two wide discs out of phase read as one soft glow.
+  return div()
+    .absolute()
+    .left(0).top(0).w(STAGE).h(STAGE)
+    .children([
+      at(disc(d1 * 1.2, d2 * 1.2, opacity), HALO_CX - d1 * 0.6, HALO_CY - d1 * 0.6),
+      at(disc(d1 * 0.8, d2 * 0.8, opacity * 1.3), HALO_CX - d1 * 0.4, HALO_CY - d1 * 0.4),
+    ]);
 }
 
 // The rose image, lifted by the status motion (`motion`: a `top` loop).
+// Drawn 3px below the top of the stage, matching the halo's +3 anchor offset.
 function rose(motion) {
-  const r = at(image("mods/gentle-agent-cards/rose.png").w(ROSE_W).h(ROSE_H), roseLeft, 0);
+  const r = at(image("mods/gentle-agent-cards/rose.png").w(ROSE_W).h(ROSE_H), roseLeft, roseTop + 3);
   const g = div().absolute().left(0).w(STAGE).h(STAGE).children([r]);
   return motion ? g.loop("top", motion) : g.top(0);
 }
@@ -63,7 +73,7 @@ function working(t) {
   const c = t.working;
   const bob = { from: 0, to: 1.5, period: 900 };
   return [
-    withBob(halo(c, 28, 32, 1800), bob),
+    withBob(halo(c, 34, 44, 1800, 0.15), bob),
     ground(t, c),
     rose(bob),
   ];
@@ -74,7 +84,7 @@ function idle(t) {
   const c = t.idle ?? t.dim;
   const bob = { from: 0, to: 2, period: 3200 };
   return [
-    withBob(halo(c, 26, 30, 3400, 0.1), bob),
+    withBob(halo(c, 34, 46, 3400, 0.1), bob),
     ground(t, c),
     rose(bob),
     zzz(t, 48, 9, 2600, 16, 4),
@@ -87,7 +97,7 @@ function idle(t) {
 function blocked(t) {
   const c = t.blocked;
   return [
-    halo(c, 28, 34, 500, 0.22),
+    halo(c, 42, 54, 500, 0.3),
     ground(t, c),
     rose(null).loop("left", { from: roseLeft - 1, to: roseLeft + 1, period: 260, easing: "linear" }),
   ];
@@ -98,7 +108,7 @@ function done(t) {
   const c = t.done;
   const bob = { from: 0, to: -5, period: 700 };
   return [
-    withBob(halo(c, 28, 34, 1400, 0.2), bob),
+    withBob(halo(c, 38, 50, 1400, 0.16), bob),
     ground(t, c),
     rose(bob),
   ];
@@ -109,7 +119,7 @@ function waiting(t) {
   const c = t.waiting ?? t.dim;
   const bob = { from: 0, to: 0.5, period: 2400 };
   return [
-    withBob(halo(c, 26, 30, 2400, 0.12), bob),
+    withBob(halo(c, 34, 46, 2400, 0.12), bob),
     ground(t, c),
     rose(bob),
     at(div().w(4).h(6).rounded(2).bg(c)

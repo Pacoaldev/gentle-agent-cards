@@ -1,7 +1,7 @@
 {
   "app": "gentle-agent-cards-app",
   "description": "The agents of the sidebar as cards: the Gentle Shell flower acts out each status (breathes fast and spins a little sun when working, sleeps with rising z's when idle, pulses and shakes when it needs you, blooms and jumps when done, sways under a falling drop while waiting), with sub-agents, a pin button and a duplicate button.",
-  "readme": "https://github.com/OWNER/gentle-agent-cards-app",
+  "readme": "https://github.com/Pacoaldev/gentle-agent-cards",
   "settings": [
     {
       "id": "needsYouFirst",
