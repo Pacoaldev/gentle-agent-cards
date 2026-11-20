@@ -2,7 +2,9 @@
 
 A Herdr app mod (`gentle-agent-cards`) that draws the agents list of the sidebar as cards, each with the Gentle Shell flower that acts out the status, in the spirit of [Agent Cards](https://github.com/dougcunha/herdr-mods/tree/main/agent-cards-app).
 
-![Gentle Agent Cards](preview.png)
+<p align="center">
+  <img width="380" src="animation.gif" alt="Gentle Agent Cards" />
+</p>
 
 ## Install
 
@@ -10,7 +12,7 @@ Copy and paste this prompt to your LLM agent:
 
 `Read ~/.config/herdr-app/AGENTS.md, then add this mod: https://github.com/Pacoaldev/gentle-agent-cards/tree/main/mods/gentle-agent-cards`
 
-The [Dock](https://github.com/dougcunha/herdr-mods/tree/main/dock-app) layout (`main-dock`) shows it in its `agents` block. It reads the icons of the `workspace-chrome` mod (`server.svg`, `spinner.svg`, `pin.svg`, `pin-off.svg`, `chevron-down.svg`, `chevron-right.svg`), so install that mod too. Two buttons appear only when their mod is installed: **rename** needs `tab-namer`, **duplicate** needs `kanban`.
+All icons and assets are bundled inside `mods/gentle-agent-cards/`, so it works out of the box with no extra dependencies. If you use the [Dock](https://github.com/dougcunha/herdr-mods/tree/main/dock-app) layout (`main-dock`), it shows in its `agents` block; you can also open it directly in any tab or split pane. Two optional action buttons appear automatically if you also have their companion mods installed: **rename** uses `tab-namer`, and **duplicate** uses `kanban`.
 
 ## What it shows
 
@@ -18,11 +20,11 @@ The head "Agents" with "N active · M" and the bell button on the right, then on
 
 | Status | The flower | The pill |
 | --- | --- | --- |
-| Working | The petals breathe fast, the heart pulses over a darker ring and the blossom bobs while a small flower glyph turns. | `Working...` (the dots animate) |
-| Sleeping | The petals fold small, the whole flower breathes slowly (3.2 s) and three "z" rise and fade. | `Sleeping` |
-| Needs you | Big petals pulse fast (400 ms) and the blossom shakes left and right. | `Needs you` |
-| Done | The petals bloom wide and the blossom jumps. | `Done` |
-| Waiting | A drop falls over the flower while it sways. | the agent's own status |
+| Working | The rose bobs gently over a counter-phase breathing mist while glowing pollen sparks rise around the bloom. | `Working...` (the dots animate) |
+| Sleeping | The rose breathes slowly (3.2 s) over a dim mist while three "z" drift up and fade. | `Sleeping` |
+| Needs you | A fast alert halo pulses while the rose shakes and side alert sparks flash. | `Needs you` |
+| Done | The rose jumps in celebration while bright sparks float up around the wide bloom. | `Done` |
+| Waiting | A dew drop falls onto the bloom while the rose sways gently. | the agent's own status |
 
 - The order is Herdr's own: pinned first, then blocked, done, working and idle (a card counts its most urgent sub-agent), then the most recent change. `agent.next` follows it.
 - A click on a card runs `pane.focus`. A click on a sub-agent row runs `terminal.peek`; a click on the "N sub-agents" head folds the rows.
@@ -49,8 +51,8 @@ The head "Agents" with "N active · M" and the bell button on the right, then on
 
 ## Credits
 
-- `mods/gentle-agent-cards/rose.png` is the Gentle Shell brand rose of [Gentle-AI](https://github.com/gentle-shell/gentle-ai) (`docs/assets/brand/rose.png`).
-- `mods/gentle-agent-cards/needs-you.svg` is the bell-ring icon of [Lucide](https://lucide.dev) (ISC license).
+- `mods/gentle-agent-cards/gentle-logo-rosa.svg` (and `rose.png`) is the Gentle Shell brand rose of [Gentle-AI](https://github.com/Gentleman-Programming/gentle-ai) (`docs/assets/brand/rose.png`).
+- `mods/gentle-agent-cards/*.svg` UI icons are from [Lucide](https://lucide.dev) (ISC license).
 - In the spirit of [Agent Cards](https://github.com/dougcunha/herdr-mods/tree/main/agent-cards-app) by Douglas Cunha.
 
 <p align="center">

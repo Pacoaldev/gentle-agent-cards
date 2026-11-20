@@ -1,6 +1,6 @@
-// The Gentle Shell rose: the brand rose image acting out each agent status.
+// The Gentle Shell rose: the brand rose vector acting out each agent status.
 // All motion is native (`loop`): no timer redraws the mod. The rose asset is
-// `docs/assets/brand/rose.png` of Gentle-AI (200x261, transparent).
+// `mods/gentle-agent-cards/gentle-logo-rosa.svg` (cropped to 806x1052 viewBox).
 
 import { div, image } from "gpui-kit";
 
@@ -93,7 +93,7 @@ function halo(tint, d1, d2, period, opacity = 0.14) {
  * @param {LoopPolicy | null} motion
  */
 function rose(motion) {
-  const r = at(image("mods/gentle-agent-cards/rose.png").w(ROSE_W).h(ROSE_H), roseLeft, roseTop + 3);
+  const r = at(image("mods/gentle-agent-cards/gentle-logo-rosa.svg").w(ROSE_W).h(ROSE_H), roseLeft, roseTop + 3);
   const g = div().absolute().left(0).w(STAGE).h(STAGE).children([r]);
   return motion ? g.loop("top", motion) : g.top(0);
 }
