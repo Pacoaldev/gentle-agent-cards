@@ -1,3 +1,7 @@
+<p align="center">
+  <img width="100%" src="banner.jpg" alt="Herdr + Gentle-Shell Mod" />
+</p>
+
 # Gentle Agent Cards
 
 A Herdr app mod (`gentle-agent-cards`) that draws the agents list of the sidebar as cards, each with the Gentle Shell flower that acts out the status, in the spirit of [Agent Cards](https://github.com/dougcunha/herdr-mods/tree/main/agent-cards-app).
